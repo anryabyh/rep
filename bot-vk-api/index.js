@@ -1,39 +1,6 @@
 
 
-        //С помощью метода wall.post создаем функцию загрузки записи в сообщества
-        const url = 'https://api.vk.com/method/wall.post';
-        var answer = '';
-        request({
-            method: 'GET',
-            url: url,
-            qs: {
-                owner_id: '-' + gid,
-                message: ptxt,
-                v: 5.131,
-                client_id: '7980233',
-                access_token: accesTk,
-                attachments: {
-                    photo: "photo" + resultPhoto.response[0].owner_id + "_" + resultPhoto.response[0].id
-                }
-            }
-        }, async function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                answer = body;
-                if (!fs.existsSync(AppDataPath + '/post_data.json')) {
-                    let data = {
-                        "iteration_number": 0,
-                        "date_last_itr": new Date()
-                    }
-                    fs.writeFileSync(AppDataPath + '/post_data.json', JSON.stringify(data), 'utf-8')
-                }
-                let RFile = fs.readFileSync(AppDataPath + '/post_data.json', 'utf-8')
-                RFile = JSON.parse(RFile)
-                if (RFile.iteration_number <= 95) {
-                    RFile.iteration_number++
-                    fs.writeFileSync(AppDataPath + '/post_data.json', JSON.stringify(RFile))
-                }
-            } else {
-                console.log('Error: ' + error)
+        /
                 console.log('\n\n\nRespons' + response)
             }
         })
